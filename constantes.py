@@ -1,0 +1,11 @@
+LARGURA = 480 
+ALTURA = 600
+
+TITULO = "BATALHA NAVAL"
+
+FRAMES = 30
+
+#cores: 
+
+AZUL = (0,0,255)
+PRETO = (0,0,0)
