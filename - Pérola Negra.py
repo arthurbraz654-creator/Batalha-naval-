@@ -81,12 +81,12 @@ fonte = None
 # ==========================================
 
 def tocar_som(nome):
-    """Função auxiliar para tocar sons apenas se eles existirem e tiverem sido carregados."""
+    """Função auxiliar para tocar sons"""
     if sons and nome in sons and sons[nome] is not None:
         sons[nome].play()
 
 def criar_navio(tabuleiro, tamanho):
-    """Gera navios normais (1 a 3 casas) aleatoriamente no tabuleiro."""
+    """Gera navios normais (1 a 3 casas) aleatoriamente"""
     while True:
         linha = random.randint(0, DIMENSAO - 1)
         coluna = random.randint(0, DIMENSAO - 1)
@@ -138,7 +138,7 @@ def criar_navio(tabuleiro, tamanho):
                 return tamanho
 
 def criar_galeao(tabuleiro):
-    """Gera o Pérola Negra de tamanho 3x8 no tabuleiro."""
+    """Gera o Pérola Negra"""
     while True:
         # Garante que o navio inteiro caiba dentro das dimensões (12x12)
         linha_inicial = random.randint(0, DIMENSAO - 8)  
@@ -166,7 +166,7 @@ def criar_galeao(tabuleiro):
             return 22
 
 def criar_frota(tabuleiro):
-    """Orquestra a criação de todos os navios de um jogador."""
+    """Orquestra a criação de todos os navios de um jogador"""
     partes = 0
     partes += criar_galeao(tabuleiro)
     print("-> Pérola Negra (3x8) posicionado nas águas!")
@@ -186,7 +186,7 @@ def criar_frota(tabuleiro):
     return partes
 
 def realizar_tiro_computador():
-    """Lógica da Inteligência Artificial (e também da retaliação do Boss)."""
+    """Lógica do Computador"""
     global acertos_computador
     
     linha_pc = random.randint(0, DIMENSAO - 1)
@@ -222,7 +222,7 @@ def realizar_tiro_computador():
 # ==========================================
 
 def inicializar_midias():
-    """Carrega todas as imagens e sons das pastas específicas."""
+    """Carrega todas as imagens e sons"""
     pygame.init()
     pygame.mixer.init()
     
@@ -232,7 +232,7 @@ def inicializar_midias():
     pasta_raiz = os.path.dirname(os.path.abspath(__file__))
 
     def carregar_img(caminho_relativo, tamanho):
-        """Tenta buscar a imagem no caminho. Se não achar, avisa amigavelmente no terminal."""
+        """Tenta buscar a imagem no caminho. Se não achar, avisa no terminal"""
         try:
             img = pygame.image.load(os.path.join(pasta_raiz, *caminho_relativo)).convert_alpha()
             return pygame.transform.scale(img, tamanho)
@@ -300,7 +300,7 @@ def inicializar_midias():
     return tela, fundo_tela, fonte_local
 
 def desenhar_tabuleiro(superficie, tabuleiro, offset_x, offset_y, titulo):
-    """Desenha a matriz do jogo respeitando as camadas de empilhamento de imagem."""
+    """Desenha a matriz do jogo respeitando as camadas de empilhamento de imagem"""
     if fonte:
         texto = fonte.render(titulo, True, COR_TEXTO)
         superficie.blit(texto, (offset_x, offset_y - 35))
