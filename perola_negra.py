@@ -439,9 +439,10 @@ def tela_fim(tela, fonte_titulo, fonte_botao, mensagem_fim):
     botao_sair = pygame.Rect(LARGURA_TELA // 2 - 130, ALTURA_TELA - 95, 260, 60)
     cor_titulo = (60, 220, 90) if "VOCÊ" in mensagem_fim else (220, 60, 60)
 
-    pos_mouse = pygame.mouse.get_pos()
+    
     relogio = pygame.time.Clock()
     while True:
+        pos_mouse = pygame.mouse.get_pos()
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit()
