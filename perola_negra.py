@@ -359,6 +359,25 @@ def desenhar_texto_com_sombra(tela, texto, fonte, cor_texto, cor_sombra, pos_cen
     rect_texto = render_texto.get_rect(center=pos_center)
     tela.blit(render_texto, rect_texto)
 
+def desenhar_texto_com_contorno(tela, texto, fonte, cor_texto, cor_contorno, pos_center, espessura=2):
+    """
+    Desenha um texto com um contorno sólido ao redor.
+    """
+    x, y = pos_center
+    
+    # Desenha o texto 8 vezes, nos arredores da posição central
+    for dx in range(-espessura, espessura + 1):
+        for dy in range(-espessura, espessura + 1):
+            if dx != 0 or dy != 0:
+                render_contorno = fonte.render(texto, True, cor_contorno)
+                rect_contorno = render_contorno.get_rect(center=(x + dx, y + dy))
+                tela.blit(render_contorno, rect_contorno)
+    
+    # Desenha o texto principal por cima
+    render_texto = fonte.render(texto, True, cor_texto)
+    rect_texto = render_texto.get_rect(center=(x, y))
+    tela.blit(render_texto, rect_texto)
+
 def desenhar_botao(tela, fonte_botao, rect, texto, cor_fundo, pos_mouse):
     """Desenha um botão estilo madeira/pirata com efeito hover."""
     cor_borda = (212, 175, 55)  # Dourado envelhecido
@@ -412,8 +431,10 @@ def tela_menu(tela, fonte_titulo, fonte_botao):
             tela.fill(COR_FUNDO)
 
 
-        cor_titulo_ouro = (255, 215, 0)
-        desenhar_texto_com_sombra(tela, "BATALHA NAVAL", fonte_titulo, cor_titulo_ouro, (0, 0, 0), (LARGURA_TELA // 2, 85))
+        cor_titulo_ouro = (43, 27, 14)
+        cor_subtitulo = (43, 27, 14)
+        desenhar_texto_com_contorno(tela, "BATALHA NAVAL", fonte_titulo, cor_titulo_ouro, (244, 231, 197), (LARGURA_TELA // 2, 85))
+        desenhar_texto_com_contorno(tela, "A Maldição do Pérola Negra", fonte_subtitulo, cor_subtitulo, (244, 231, 197), (LARGURA_TELA // 2, 135))
 
         # Desenhando os botões usando uma cor de madeira escura (101, 67, 33)
         cor_madeira = (101, 67, 33)
@@ -439,9 +460,9 @@ def tela_fim(tela, fonte_titulo, fonte_botao, mensagem_fim):
     botao_sair = pygame.Rect(LARGURA_TELA // 2 - 130, ALTURA_TELA - 95, 260, 60)
     cor_titulo = (60, 220, 90) if "VOCÊ" in mensagem_fim else (220, 60, 60)
 
-    
     relogio = pygame.time.Clock()
     while True:
+
         pos_mouse = pygame.mouse.get_pos()
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -633,6 +654,7 @@ if __name__ == "__main__":
     pygame.display.set_caption("Batalha Naval - A Fúria do Pérola Negra")
 
     fonte_titulo = pygame.font.SysFont("Georgia", 72, bold=True)
+    fonte_subtitulo = pygame.font.SysFont("Georgia", 32, bold=True)
     fonte_botao = pygame.font.SysFont("Georgia", 26, bold=True)
     fonte_label = pygame.font.SysFont("Georgia", 22, bold=True)
 
